@@ -1,17 +1,18 @@
 import requests
 from bs4 import BeautifulSoup
-#from zipfile import ZipFile
+import os
 
-#with open('extraction.zip', 'wb') as zipFile:
+os.mkdir('export/')
+os.mkdir('export/images/')
 
-with open('data.csv','a+') as csvFile:
+with open('export/'+'data.csv','a+',newline='') as csvFile:
     csvFile.write('product_page_url,universal_ product_code (upc),title,price_including_tax,price_excluding_tax,number_available,product_description,category,review_rating,image_url\n')
 
-    for i in range(2):
+    for i in range(3):
         url = 'http://books.toscrape.com/catalogue/page-' + str(i) + '.html'
         response = requests.get(url)
-        if response.ok:
 
+        if response.ok:
             soup = BeautifulSoup(response.text, 'html.parser')
             articles = soup.findAll('h3')
             for h3 in articles:
@@ -19,8 +20,8 @@ with open('data.csv','a+') as csvFile:
                 link = a['href']
                 urlLinks = ('http://books.toscrape.com/catalogue/' + link)
                 response = requests.get(urlLinks)
-                if response.ok:
 
+                if response.ok:
                     soup = BeautifulSoup(response.text,'html.parser')
                     for i in soup.findAll('th'):
                         if i.text == 'UPC':
@@ -48,8 +49,9 @@ with open('data.csv','a+') as csvFile:
                     imageLinks = soup.find('img')['src'].replace('../../','http://books.toscrape.com/')
                     csvFile.write(urlLinks + ',' + code + ',' + title + ',' + priceNet + ',' + priceBrut + ',' + stock + ',' + description[3].text.replace(',','') + ',' + category[3].text + ',' + review + ',' + imageLinks + '\n')
 
-                    #response = requests.get(imageLinks)
-                    #if response.ok:
-                        #zipFile.write(response.content)
-
+                    response = requests.get(imageLinks)
+                    if response.ok:
+                        imageName = title + '.jpg'
+                        imageFile = open('export/images/'+imageName, 'wb')
+                        imageFile.write(response.content)
 
