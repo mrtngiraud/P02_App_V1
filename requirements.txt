@@ -9,6 +9,7 @@ Afin d'exécuter le script correctement, il est recommandé :
         ou un message similaire, il est probable que votre installation de Python
         soit incorrecte ou manquante. Dans ce cas, vous devez télécharger et installer
         la dernière version de Python avant de continuer.
+        Sinon vous devrier voir s'afficher Python 3.X.X.
 
 2. de créer un environnement virtuel à la racine du dossier projet :
 
@@ -42,7 +43,7 @@ Afin d'exécuter le script correctement, il est recommandé :
                                 soupsieve==2.1
                                 urllib3==1.26.2
 
-6. de lancer le script :
+6. d'exécuter le script :
 
         => dans une ligne de terminal, taper :
         python3 main.py
