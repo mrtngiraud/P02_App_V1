@@ -1,8 +1,54 @@
-beautifulsoup4==4.9.3
-bs4==0.0.1
-certifi==2020.12.5
-chardet==4.0.0
-idna==2.10
-requests==2.25.1
-soupsieve==2.1
-urllib3==1.26.2
+Afin d'exécuter le script correctement, il est recommandé :
+
+1. d'avoir déjà installé Python dans une version >= 3.4
+
+        => dans une ligne de terminal, taper :
+        python3 --version
+
+        Si vous recevez un message d'erreur indiquant que Python est introuvable,
+        ou un message similaire, il est probable que votre installation de Python
+        soit incorrecte ou manquante. Dans ce cas, vous devez télécharger et installer
+        la dernière version de Python avant de continuer.
+
+2. de créer un environnement virtuel à la racine du dossier projet :
+
+        => dans une ligne de terminal, taper :
+        python3 -m venv env
+
+3. d'activer l'environnement virtuel créé précédemment :
+
+        => dans une ligne de terminal, taper :
+        source env/bin/activate
+
+4. d'installer les paquets Python suivants dans l'environnement virtuel activé précédemment :
+
+        => dans une ligne de terminal, taper :
+        pip3 install beautifulsoup4
+        pip3 install requests
+
+        nb : pour plus d'informations, consulter PyPi.org
+
+5. de vérifier la bonne installation des paquets Python :
+
+        => dans une ligne de terminal, taper :
+        pip3 freeze
+
+        Vous devriez obtenir :  beautifulsoup4==4.9.3
+                                bs4==0.0.1
+                                certifi==2020.12.5
+                                chardet==4.0.0
+                                idna==2.10
+                                requests==2.25.1
+                                soupsieve==2.1
+                                urllib3==1.26.2
+
+6. de lancer le script :
+
+        => dans une ligne de terminal, taper :
+        python3 main.py
+
+
+
+
+
+
