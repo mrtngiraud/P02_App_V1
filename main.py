@@ -34,8 +34,7 @@ with open('export/'+'data.csv','a+',newline='') as csvFile:
                         if i.text == 'Price (incl. tax)':
                             priceNet = i.findNext('td').text.replace('Â','')
                         if i.text == 'Availability':
-                            stock = i.findNext('td').text.replace('In stock (','').replace(' available)','')
-                            #stock = re.findall('[0-9]+',str(i.findNext('td'))
+                            stock = re.findall('\d+',(i.findNext('td').text))[0]
                     title = soup.find('h1').text.replace(',','').replace('/','')
                     description = soup.findAll('p')[3].text.replace(',','').replace('"','')
                     category = soup.findAll('a')[3].text
@@ -53,9 +52,7 @@ with open('export/'+'data.csv','a+',newline='') as csvFile:
                     imageLinks = soup.find('img')['src'].replace('../../','http://books.toscrape.com/')
                     csvFile.write(urlLinks + ',' + code + ',' + title + ',' + priceNet + ',' + priceBrut + ',' + stock + ',' + description + ',' + category + ',' + review + ',' + imageLinks + '\n')
 
-                    response = requests.get(imageLinks)
-                    if response.ok:
-                        with open('export/images/{}.jpg'.format(title), 'wb') as imageFile:
-                            imageFile.write(response.content)
+                    from fonctions import saveImage
+                    saveImage(imageLinks,title)
 
 print("Fin d'extraction des données")
