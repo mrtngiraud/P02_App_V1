@@ -2,11 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 import os
 import re
+from fonctions import pageSite
 from fonctions import chiffre
 from fonctions import saveImage
 
 print("Début d'extraction des données")
-
 os.mkdir('export/')
 os.mkdir('export/images/')
 
@@ -14,9 +14,7 @@ with open('export/'+'data.csv','a+',newline='') as csvFile:
     csvFile.write('product_page_url,universal_ product_code (upc),title,price_including_tax,price_excluding_tax,number_available,product_description,category,review_rating,image_url\n')
 
     for i in range(2):
-        url = 'http://books.toscrape.com/catalogue/page-{}.html'.format(i)
-        response = requests.get(url)
-
+        response = requests.get(pageSite(i))
         if response.ok:
             soup = BeautifulSoup(response.text, 'html.parser')
             articles = soup.findAll('h3')
