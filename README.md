@@ -1,8 +1,8 @@
-#OpenClassrooms
+# OpenClassrooms
 ## Développeur d'application - Python
-###Projet n°2 : Utilisez les bases de Python pour l'analyse de marché
+### Projet n°2 : Utilisez les bases de Python pour l'analyse de marché
 ***
-####1. Informations générales
+#### 1. Informations générales
 Ce projet a pour objectif d'automatiser le processus d'extraction des données marketing du site internet [Books to Scrap](http://books.toscrape.com), un revendeur de livres d'occasion.
 <br/>
 
@@ -22,12 +22,12 @@ Pour cela, un script Python a été développé, mettant principalement en oeuvr
 * dans un dossier **export/images/** :
   * les couvertures des livres au format **titre.jpg**
 ***
-####2. Démarrage
+#### 2. Démarrage
 
 Afin d'exécuter le script correctement, il est recommandé de créer un environnement virtuel et d'y installer les paquets Python requis en suivant les instructions du fichier **requirements.txt**.
 
 ***
-####3. Auteur
+#### 3. Auteur
 
 Martin GIRAUD
 <br/>
