@@ -1,6 +1,6 @@
 #OpenClassrooms
 ## Développeur d'application - Python
-###’
+###Projet n°2 : Utilisez les bases de Python pour l'analyse de marché
 ***
 ####1. Informations générales
 Ce projet a pour objectif d'automatiser le processus d'extraction des données marketing du site internet [Books to Scrap](http://books.toscrape.com), un revendeur de livres d'occasion.
