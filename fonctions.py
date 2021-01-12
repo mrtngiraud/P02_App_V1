@@ -2,30 +2,20 @@ import requests
 
 #renvoyer l'url d'une page du site
 '''
-i = numéro page
+i = numéro d'une page du site
 '''
 def pageSite(i):
     return 'http://books.toscrape.com/catalogue/page-{}.html'.format(i)
 
-
-
-
+#renvoyer l'url d'une page d'un livre
 '''
-a = url de la page site
-b = balise de la page livre
-c = lien de la page livre
-
+a = balise head
+b = 'balise body'
+c = 'class contenant le lien hypertexte'
+'''
 def pageLivre(a,b,c):
-response = requests.get(a)
-    if response.ok:
-        soup = BeautifulSoup(response.text, 'html.parser')
-        articles = soup.findAll('b')
-        for b in articles:
-            link = b.find('b')['c']
-            urlLinks = 'http://books.toscrape.com/catalogue/{}'.format(link)
-'''
-
-
+        link = a.find(b)[c]
+        return 'http://books.toscrape.com/catalogue/{}'.format(link)
 
 #enregistrer une image
 '''

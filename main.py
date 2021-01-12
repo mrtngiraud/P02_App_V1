@@ -2,9 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import os
 import re
-from fonctions import pageSite
-from fonctions import chiffre
-from fonctions import saveImage
+from fonctions import *
 
 print("Début d'extraction des données")
 os.mkdir('export/')
@@ -15,12 +13,12 @@ with open('export/'+'data.csv','a+',newline='') as csvFile:
 
     for i in range(2):
         response = requests.get(pageSite(i))
+
         if response.ok:
             soup = BeautifulSoup(response.text, 'html.parser')
             articles = soup.findAll('h3')
             for h3 in articles:
-                link = h3.find('a')['href']
-                urlLinks = 'http://books.toscrape.com/catalogue/{}'.format(link)
+                urlLinks = pageLivre(h3,'a','href')
                 response = requests.get(urlLinks)
 
                 if response.ok:
