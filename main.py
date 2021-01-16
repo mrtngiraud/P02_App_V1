@@ -21,7 +21,7 @@ with open('export/'+'data.csv', 'a+', newline='', encoding='utf-8-sig') as csvFi
                      'image_url'])
 
     # Boucle sur les 50 pages du site:
-    for i in range(3):
+    for i in range(51):
         response = requests.get(pagesite(i))
 
         # Conditionnel et définition de l'objet soup sur les pages du site:
