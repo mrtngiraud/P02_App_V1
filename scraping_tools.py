@@ -35,6 +35,8 @@ def chiffre(a):
     return dico.get(a)
 
 
+
+
 # Fonction4/ Enregistrer une image:
 '''
 a = url de la page d'un livre
