@@ -1,12 +1,20 @@
 # Import des paquets Python:
 import requests
+from bs4 import BeautifulSoup
 
-# Fonction1/ Renvoyer l'url d'une page du site:
+# Fonction1/ Renvoyer l'url d'une page d'une catégorie d'un livre:
 '''
-i = numéro d'une page du site
+a = balise head de b
+b = 'balise body de c'
+c = 'class de c du lien hypertexte'
+i = itération de 3 à 53
 '''
-def pagesite(i):
-    return 'http://books.toscrape.com/catalogue/page-{}.html'.format(i)
+def pagecategorie(a, b, c, i):
+    response = requests.get('http://books.toscrape.com/index.html')
+    if response.ok:
+        soup = BeautifulSoup(response.content, 'html.parser')
+        link = soup.findAll(a)[i].find(b)[c]
+        return 'http://books.toscrape.com/{}'.format(link)
 
 
 # Fonction2/ Renvoyer l'url d'une page d'un livre:
@@ -18,7 +26,6 @@ c = 'class de c du lien hypertexte'
 def pagelivre(a, b, c):
     link = a.find(b)[c]
     return 'http://books.toscrape.com/catalogue/{}'.format(link)
-
 
 # Fonction3/ Convertir nombre lettre en nombre chiffre (de 1 à 5):
 '''
