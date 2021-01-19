@@ -1,49 +1,64 @@
 # Import des paquets Python:
-import requests
 from bs4 import BeautifulSoup
+import requests
+import re
+import os
+import csv
 
-# Fonction1/ Renvoyer l'url d'une page d'une catégorie d'un livre:
-'''
-a = balise head de b
-b = 'balise body de c'
-c = 'class de c du lien hypertexte'
-i = itération de 3 à 53
-def pagecategorie(a, b, c, i):
-    response = requests.get('http://books.toscrape.com/index.html')
-    if response.ok:
-        soup = BeautifulSoup(response.content, 'html.parser')
-        link = soup.findAll(a)[i].find(b)[c]
-        return 'http://books.toscrape.com/{}'.format(link)
-'''
 
-# Fonction2/ Renvoyer l'url d'une page d'un livre:
+# Fonction1/ Convertir nombre lettre en nombre chiffre (de 1 à 5):
 '''
-a = balise head de b
-b = 'balise body de c'
-c = 'class de c du lien hypertexte'
+number = nombre lettre
 '''
-def pagelivre(a, b, c):
-    linklivre = a.find(b)[c]
-    return linklivre.replace('../../../', 'http://books.toscrape.com/catalogue/')
-
-# Fonction3/ Convertir nombre lettre en nombre chiffre (de 1 à 5):
-'''
-a = nombre lettre
-'''
-def chiffre(a):
+def get_digit_from_word(number):
     dico = {'One': '1', 'Two': '2', 'Three': '3', 'Four': '4', 'Five': '5'}
-    return dico.get(a)
+    return dico.get(number)
+
+
+# Fonction2/ Création des dossiers et fichiers d'extraction des données et images par catégorie:
 
 
 
-
-# Fonction4/ Enregistrer une image:
+# Fonction 3/ Enregistrer les données et images des pages livre:
 '''
-a = url de la page d'un livre
-b = titre du livre
+response = résultat de requests.get sur l'url des pages catégorie
+writer = objet de csv.writer permettant d'écrire dans le fichier data.csv
+categoryhome = résultat de soup.find sur les catégories de la page d'accueil
 '''
-def saveimage(a, b):
-    response = requests.get(a)
-    if response.ok:
-        with open('export/images/{}.jpg'.format(b), 'wb') as imageFile:
-            imageFile.write(response.content)
+def save_data_and_image(response, writer, categoryhome):
+    soup = BeautifulSoup(response.content, 'html.parser')
+
+    # Boucle sur les pages des livres:
+    for h3 in soup.findAll('h3'):
+        response = requests.get(h3.find('a')['href'].replace('../../../', 'http://books.toscrape.com/catalogue/'))
+
+        # Conditionnel et définition de l'objet soup sur les pages des livres
+        if response.ok:
+            soup = BeautifulSoup(response.content, 'html.parser')
+
+            # Définition des données des en-têtes de colonnes:
+            urllivre = h3.find('a')['href'].replace('../../../', 'http://books.toscrape.com/catalogue/')
+            title = soup.find('h1').text
+            description = soup.findAll('p')[3].text
+            category = soup.findAll('a')[3].text
+            review = get_digit_from_word(soup.findAll('p')[2]['class'][1])
+            urlimage = soup.find('img')['src'].replace('../../', 'http://books.toscrape.com/')
+            for j in soup.findAll('th'):
+                if j.text == 'UPC':
+                    code = j.find_next('td').text
+                if j.text == 'Price (excl. tax)':
+                    priceBrut = j.find_next('td').text
+                if j.text == 'Price (incl. tax)':
+                    priceNet = j.find_next('td').text
+                if j.text == 'Availability':
+                    stock = re.findall(r'\d+', j.find_next('td').text)[0]
+
+            # Écriture des données des en-têtes de colonnes dans le fichier data.csv:
+            writer.writerow([urllivre, code, title, priceNet, priceBrut, stock, description, category,
+                             review, urlimage])
+
+            # Téléchargement des images dans le dossier export/images/:
+            response = requests.get(urlimage)
+            if response.ok:
+                with open('export/{}/images/{}.jpg'.format(categoryhome, code), 'wb') as imageFile:
+                    imageFile.write(response.content)
