@@ -1,10 +1,12 @@
 # Import des paquets Python:
+import requests
+from bs4 import BeautifulSoup
 import os
 import csv
 from math import ceil
 
 # Import des fonctions:
-from scraping_tools import *
+from scraping_tools import save_data_and_image
 
 print("Début d'extraction des données")
 

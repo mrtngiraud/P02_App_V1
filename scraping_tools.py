@@ -4,22 +4,24 @@ import requests
 import re
 
 
-# Fonction1/ Convertir nombre lettre en nombre chiffre (de 1 à 5):
-'''
-number = nombre lettre
-'''
 def get_digit_from_word(number):
+    '''
+    Convertir nombre lettre en nombre chiffre (de 1 à 5)
+    :param number: nombre lettre
+    :return: nombre chiffre
+    '''
     dico = {'One': '1', 'Two': '2', 'Three': '3', 'Four': '4', 'Five': '5'}
     return dico.get(number)
 
 
-# Fonction 2/ Enregistrer les données et images des pages livre:
-'''
-response = résultat de requests.get sur l'url des pages catégorie
-writer = objet de csv.writer permettant d'écrire dans le fichier data.csv
-categoryhome = résultat de soup.find sur les catégories de la page d'accueil
-'''
 def save_data_and_image(response, writer, categoryhome):
+    '''
+    Enregistrer les données et images des pages livre
+    :param response: résultat de requests.get sur l'url des pages catégorie
+    :param writer: objet de csv.writer permettant d'écrire dans le fichier data.csv
+    :param categoryhome: résultat de soup.find sur les catégories de la page d'accueil
+    :return: writer.writerow des données scrapées et imageFile.write des images
+    '''
     soup = BeautifulSoup(response.content, 'html.parser')
 
     # Boucle sur les pages des livres:
