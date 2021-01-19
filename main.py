@@ -12,13 +12,13 @@ print("Début d'extraction des données")
 os.mkdir('export/')
 
 # Boucle sur les 50 pages catégorie 'index' du site:
-for i in range(3, 7):
+for i in range(3, 53):
     response = requests.get('http://books.toscrape.com/index.html')
 
     # Conditionnel et définition de l'objet soup sur la page accueil du site:
     if response.ok:
         soup = BeautifulSoup(response.content, 'html.parser')
-        categoryhome = soup.findAll('li')[i].text.replace(' ', '')
+        categoryhome = soup.findAll('li')[i].get_text("\n", strip=True)
         linkcategory = soup.findAll('li')[i].find('a')['href']
         response = requests.get('http://books.toscrape.com/{}'.format(linkcategory))
 
