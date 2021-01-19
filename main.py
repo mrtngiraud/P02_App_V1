@@ -11,7 +11,7 @@ print("Début d'extraction des données")
 # Création du dossier export/:
 os.mkdir('export/')
 
-# Boucle sur les 50 pages catégorie du site:
+# Boucle sur les 50 pages catégorie 'index' du site:
 for i in range(3, 7):
     response = requests.get('http://books.toscrape.com/index.html')
 
@@ -36,9 +36,9 @@ for i in range(3, 7):
             if response.ok:
                 save_data_and_image(response, writer, categoryhome)
 
-            # Enregistrement des données et images des pages catégorie "next"
+            # Boucle sur les pages catégorie 'next'
             response = requests.get('http://books.toscrape.com/{}'.format(linkcategory))
-
+            
             if response.ok:
                 soup = BeautifulSoup(response.content, 'html.parser')
 

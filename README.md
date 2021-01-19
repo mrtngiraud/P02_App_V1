@@ -6,7 +6,7 @@
 Ce projet a pour objectif d'automatiser le processus d'extraction des données marketing du site internet [Books to Scrap](http://books.toscrape.com), un revendeur de livres d'occasion.
 <br/>
 
-Pour cela, un script Python a été développé, mettant principalement en oeuvre les techniques de "scraping", afin d'enregistrer :
+Pour cela, un script Python a été développé, mettant principalement en oeuvre les techniques de "scraping", afin d'enregistrer par catégorie de livre :
 * dans un dossier **export/** :
   * un fichier **data.csv** contenant les informations suivantes :
     * product_page_url 

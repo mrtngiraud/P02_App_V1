@@ -2,8 +2,6 @@
 from bs4 import BeautifulSoup
 import requests
 import re
-import os
-import csv
 
 
 # Fonction1/ Convertir nombre lettre en nombre chiffre (de 1 à 5):
@@ -15,11 +13,7 @@ def get_digit_from_word(number):
     return dico.get(number)
 
 
-# Fonction2/ Création des dossiers et fichiers d'extraction des données et images par catégorie:
-
-
-
-# Fonction 3/ Enregistrer les données et images des pages livre:
+# Fonction 2/ Enregistrer les données et images des pages livre:
 '''
 response = résultat de requests.get sur l'url des pages catégorie
 writer = objet de csv.writer permettant d'écrire dans le fichier data.csv
